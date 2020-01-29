@@ -33,9 +33,11 @@ public class FloorSubsystem implements Runnable{
 	}
 	public void sendData() {
 		
-		Schedular Send = new Schedular(this.time,this.floors,this.Elevnum,this.buttons);
+		
 		
 	}
+	
+	
 	
 	
 	@Override
