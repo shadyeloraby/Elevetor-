@@ -1,67 +1,103 @@
-import java.time.LocalTime;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 
 
 public class Schedular implements Runnable{
+	 
 	
-    private boolean UpLamp; //direction lamps
-	private boolean DownLamp; //""
+	private Elevatorsys elevator;
+   
 	
-	private boolean upWard; //direction lamps
-	private boolean downWard; //""
+    private boolean empty; 
 	
-	private LocalTime time;
-	
-	private  ArrayList<Integer> floors = new ArrayList<>() ;;
-	
-	private int Elevnum;
-	
-	private char[] buttons;
-	
-
-
-	
-
-	
-	
-	
-	
-	public void getInfo(LocalTime time,int floor,int elevnum,boolean[] btns) {
-		
-		this.time = time;
-		floors.add(floor);
-		
+    private int nfl;
+    
+    private int test;
+    
+    private String shady;
+    private  SimpleDateFormat newTime; 
+    
+    
+    public Schedular() {
+    	
+    	this.elevator = new Elevatorsys();
+    	
+    	this.empty = true;
+    	
+    	
+    }
+    
+    
+	public  void get_floor(String upDown, int floor, int car, SimpleDateFormat time) {
 		
 		
+		this.elevator.elevatorsys(upDown, floor, car, time);
+	
+		this.empty = false;
+		
+		
+	}
+	
+	public void get_elev( int s, String upDown, int t) {
+		
+		
+		this.shady = upDown;
+		
+		this.test = s;
+		
+		this.nfl = t;
+		
+		
+		System.out.println(" first print statment floor: " + this.test + this.shady + "Time: " + this.nfl); 
+	}
+	
+	public synchronized void ReceiveFlr() {
+		
+		
+		System.out.println("floor: " + this.test + this.shady + "Time: " + this.nfl);
 		
 	}
 	
-	public void  upDownWard() {
-		
-		if (upWard) {
+	
+	public synchronized void receiveELev(){
 			
-			
-			
-			
-		}else if(downWard){
-			
-			
-			
-			
-		}else {
-			
-		}
+	
+		System.out.println("floor: " + this.test + this.shady + "Time: " + this.nfl);
 		
 	}
+	
+	
+	
+	//public void  upDownWard() {
+		
+	//	if (upWard) {
+			
+			
+			
+			
+	//	}else if(downWard){
+			
+			
+			
+			
+	//	}else {
+			
+	//	}
+		
+	//}
 	
 	
 	
 	
 	@Override
 	public void run() {
-		System.out.println("`i am sexy");
+
+		
+		receiveELev();
 		
 		// TODO Auto-generated method stub
 		
@@ -70,3 +106,4 @@ public class Schedular implements Runnable{
 	
 	
 }
+
