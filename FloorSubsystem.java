@@ -1,54 +1,90 @@
 
 
-import java.time.*; 
-
+import java.time.*;
+import java.util.Scanner;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class FloorSubsystem implements Runnable{
 	
-	private boolean UpLamp; //direction lamps
+	private SimpleDateFormat time;
 	
-	private boolean DownLamp; //""
+	private String upDown;
 	
-	private LocalTime time;
+	private int floor;
 	
-	private boolean Upbtn;
+	private int carButton;
 	
-	private boolean Downbtn;
+	private Schedular schedular = new Schedular();
 	
-	private int[] floors;
+	private String line;
 	
-	private int Elevnum;
+	private String[] seperateData;
 	
-	private boolean[] buttons;
+	
+	public FloorSubsystem() {}
 
-	
-	
-	
-	public FloorSubsystem() {
+	public void readSendData(BufferedReader br) throws IOException{
 		
 		
-		
-		
-		
+		while((line = br.readLine()) != null) { 
+    		
+			seperateData = line.split(" ");
+			
+			time.applyLocalizedPattern(seperateData[0]);
+			
+			floor = Integer.parseInt(seperateData[1]);
+			
+			upDown = seperateData[2];
+			
+			carButton = Integer.parseInt(seperateData[3]); 
+			
+			//*******************SEND***************************
+			
+			schedular.get_floor(upDown,floor, carButton, time);
+				
+    	}
+
 	}
-	public void sendData() {
-		
-		
-		
-	}
-	
-	
-	
+
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		System.out.println("`i am floor");
-		
+        
+        Scanner scnr = new Scanner(System.in);
+      
+        BufferedReader br = null; 
+        
+        try {
+        	
+        	System.out.print("Please enter the path for the input file: ");
+        	
+        	String fileName = scnr.next();
+        	
+        	FileReader f = new FileReader(fileName); //file name is read from user via FilerReader
+            
+        	br = new BufferedReader(f); 
+        	
+        	readSendData(br);
+        	
+        }
+        catch(IOException ee){
+        	
+            System.out.println("File not found");
+            
+        }finally {
+            
+            try {
+                br.close();
+            }
+            catch(IOException ie) {
+                System.out.println("Error occured while closing the BufferedReader");
+            }
+            
+        }
+        
 	}
-	
-	
-	
 	
 
 }
