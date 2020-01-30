@@ -1,27 +1,20 @@
-
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Arrays;
 
 public class Elevator implements Runnable {
 
-	
-	private LocalTime time;
-	
-	private int[] floors;
-	
-	private int Elevnum;
+
 	
 	private boolean[] buttons;
 	
+	private Schedular schedular;
+	
 	public Elevator() {
+		
 		
 	}
 	public Elevator(int Elevnum,int floor) {
-		
-		
-		this.Elevnum = Elevnum;
-		
-		this.floors =  new int[floor];
 		
 		this.buttons = new boolean[floor];
 		
@@ -30,12 +23,20 @@ public class Elevator implements Runnable {
 		
 	}
 
+	public void send () {
+
+		
+		//this.time.applyLocalizedPattern("here");
+		
+		this.schedular.get_elev( 1, "up", 11);
+		
+	}
 
 	@Override
 	public void run() {
-		System.out.println("`i am ");
-		
-		
+		//System.out.println("`i am ");
+	
+		send();
 	}
 	
 	
